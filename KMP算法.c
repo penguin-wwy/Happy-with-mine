@@ -19,8 +19,8 @@ int *make_next(const char p[])
 
 int KMP_mathcer(const char ch1[], const char ch2[])
 {
-	int n = 0, m = 0, q = 0;
-	if(0 == (n = strlen(ch1)) && 0 == (m = strlen(ch2)))
+	int n = strlen(ch1), m = strlen(ch2), q = 0;
+	if(0 == n && 0 == m)
 		return 0;
 	int *next = make_next(ch2);
 	
