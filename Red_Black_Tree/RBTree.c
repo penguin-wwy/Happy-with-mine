@@ -179,26 +179,26 @@ static void insert_fixup(RBTree *tree, node *z)
 	while (RED == z->parent->color){
 		if (z->parent == z->parent->parent->left){
 			y = z->parent->parent->right;
-			if (RED == y->color){//zÊåÊåÎªºìÉ«
-				//¸¸½ÚµãºÍÊåÊå½ÚµãÉèÎªºÚÉ«£¬×æ¸¸½ÚµãÉèÎªºìÉ«£¬zÖ¸ÕëÖ¸Ïò×æ¸¸½Úµã
+			if (RED == y->color){//zå”å”ä¸ºçº¢è‰²
+				//çˆ¶èŠ‚ç‚¹å’Œå”å”èŠ‚ç‚¹è®¾ä¸ºé»‘è‰²ï¼Œç¥–çˆ¶èŠ‚ç‚¹è®¾ä¸ºçº¢è‰²ï¼ŒzæŒ‡é’ˆæŒ‡å‘ç¥–çˆ¶èŠ‚ç‚¹
 				z->parent->color = BLACK;
 				y->parent = BLACK;
 				z->parent->parent->color = RED;
 				z = z->parent->parent;
 			}
 			else{
-				if (z == z->parent->right){//zµÄÊåÊåÊÇºÚÉ«£¬ÇÒzÊÇparentµÄÓÒ½Úµã
+				if (z == z->parent->right){//zçš„å”å”æ˜¯é»‘è‰²ï¼Œä¸”zæ˜¯parentçš„å³èŠ‚ç‚¹
 					z = z->parent;
-					rb_rotate_left(z, tree);//½øÐÐÒ»´Î×óÐý×ª¼´¿É
+					rb_rotate_left(z, tree);//è¿›è¡Œä¸€æ¬¡å·¦æ—‹è½¬å³å¯
 				}
-				//zµÄÊåÊåÊÇºÚÉ«£¬ÇÒzÊÇparentµÄÓÒ½Úµã
-				//zµÄ¸¸½ÚµãÉèÎªºÚÉ«£¬×æ¸¸½ÚµãÉèÎªºìÉ«£¬¶Ô×æ¸¸½Úµã½øÐÐÓÒÐý×ª
+				//zçš„å”å”æ˜¯é»‘è‰²ï¼Œä¸”zæ˜¯parentçš„å³èŠ‚ç‚¹
+				//zçš„çˆ¶èŠ‚ç‚¹è®¾ä¸ºé»‘è‰²ï¼Œç¥–çˆ¶èŠ‚ç‚¹è®¾ä¸ºçº¢è‰²ï¼Œå¯¹ç¥–çˆ¶èŠ‚ç‚¹è¿›è¡Œå³æ—‹è½¬
 				z->parent->color = BLACK;
 				z->parent->parent->color = RED;
 				rb_rotate_right(z->parent->parent, tree);
 			}
 		}
-		else{//·½·¨Ò»Ñù£¬½»»»×óÓÒ
+		else{//æ–¹æ³•ä¸€æ ·ï¼Œäº¤æ¢å·¦å³
 			y = z->parent->parent->left;
 			if (RED == y->color){
 				z->parent->color = BLACK;
@@ -265,28 +265,28 @@ static void delete_fixup(RBTree *tree, node *x)
 	while (x != tree->root && x->color == BLACK){
 		if (x == x->parent->left){
 			w = x->parent->right;
-			if (RED == w->color){//xµÄÐÖµÜ½ÚµãÎªºìÉ«
-				//wÉèÎªºÚÉ«£¬xµÄ¸¸½ÚµãÉèÎªºìÉ«£¬È»ºó×óÐý×ª£¬
+			if (RED == w->color){//xçš„å…„å¼ŸèŠ‚ç‚¹ä¸ºçº¢è‰²
+				//wè®¾ä¸ºé»‘è‰²ï¼Œxçš„çˆ¶èŠ‚ç‚¹è®¾ä¸ºçº¢è‰²ï¼Œç„¶åŽå·¦æ—‹è½¬ï¼Œ
 				w->color = BLACK;
 				x->parent->color = RED;
 				rb_rotate_left(tree, x->parent);
 				w = x->parent->right;
 			}
-			if (BLACK == w->left->color && BLACK == w->right->color){//ÐÖµÜ½ÚµãÎªºÚÉ«£¬ÐÖµÜ½ÚµãµÄ×óÓÒ×Ó½ÚµãÎªºìÉ«
-				//wµÄÑÕÉ«ÉèÎªºì£¬xÎªxµÄ¸¸½Úµã
+			if (BLACK == w->left->color && BLACK == w->right->color){//å…„å¼ŸèŠ‚ç‚¹ä¸ºé»‘è‰²ï¼Œå…„å¼ŸèŠ‚ç‚¹çš„å·¦å³å­èŠ‚ç‚¹ä¸ºçº¢è‰²
+				//wçš„é¢œè‰²è®¾ä¸ºçº¢ï¼Œxä¸ºxçš„çˆ¶èŠ‚ç‚¹
 				w->color = RED;
 				x = x->parent;
 			}
 			else{
-				if (w->right->color == BLACK){//ÐÖµÜ½ÚµãµÄÓÒ×Ó½ÚµãÎªºÚÉ«
-					//w×ó×Ó½ÚµãÑÕÉ«ÉèÎªºÚ£¬wÑÕÉ«Îªºì£¬¶ÔwÓÒÐý×ª
+				if (w->right->color == BLACK){//å…„å¼ŸèŠ‚ç‚¹çš„å³å­èŠ‚ç‚¹ä¸ºé»‘è‰²
+					//wå·¦å­èŠ‚ç‚¹é¢œè‰²è®¾ä¸ºé»‘ï¼Œwé¢œè‰²ä¸ºçº¢ï¼Œå¯¹wå³æ—‹è½¬
 					w->left->color = BLACK;
 					w->color = RED;
 					rb_rotate_right(tree, w);
 					w = x->parent->right;
 				}
-				//ÐÖµÜ½ÚµãµÄ×ó×Ó½ÚµãÎªºÚÉ«
-				//wÑÕÉ«ÉèÎªrootµÄÑÕÉ«£¬¶Ôx¸¸½Úµã×óÐý×ª
+				//å…„å¼ŸèŠ‚ç‚¹çš„å·¦å­èŠ‚ç‚¹ä¸ºé»‘è‰²
+				//wé¢œè‰²è®¾ä¸ºrootçš„é¢œè‰²ï¼Œå¯¹xçˆ¶èŠ‚ç‚¹å·¦æ—‹è½¬
 				w->color = x->parent->color;
 				x->parent->color = BLACK;
 				if (w != tree->nil)

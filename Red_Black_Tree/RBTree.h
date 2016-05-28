@@ -9,8 +9,8 @@ typedef struct RBNode
 	void *key;
 }node;
 
-node *create_node(void *key, int size);			//创建节点
-int clear_node(node *, void(*proc)(void *));	//清理节点
+node *create_node(void *key, int size);			//鍒涘缓鑺傜偣
+int clear_node(node *, void(*proc)(void *));	//娓呯悊鑺傜偣
 
 typedef struct
 {
@@ -18,7 +18,7 @@ typedef struct
 	node *nil;
 	unsigned count;
 
-	int(*comp)(void *, void *);		//节点数据比较规则
+	int(*comp)(void *, void *);		//鑺傜偣鏁版嵁姣旇緝瑙勫垯
 	node *(*create_node)(void *, int);
 	int(*clear_node)(node *x, void(*proc)(void *));
 }RBTree;
